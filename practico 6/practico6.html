@@ -4,10 +4,11 @@
         Profesor: Maximiliano Torreblanca
         Tutor: Facundo Villagra
         Alumno: Ferreri, Gustavo
-        Practico 6: Simulador
+        Practico 7: Simulador
     
-        Update: 
-            En esta etapa agregamos objetos a la simulacion.
+        [Update] En esta etapa agregamos objetos a la simulacion.
+        [Update] Agregamos un array
+        
 -->
 
 <!-- Creamos una estructura basica en html -->
@@ -26,7 +27,7 @@
         <div>
             <nav class="light-blue darken-4">
                 <div class="container">
-                    <span class="brand-logo">Simulador interactivo</span>
+                    <span class="brand-logo">Calculamos Plazo Fijo</span>
                 </div>
             </nav>
             <div class="container">
@@ -36,6 +37,10 @@
                             <div class="card-content">
                                 <!-- Agregamos una funcion para evitar el envio del formulario -->
                                 <form onsubmit="return false;">
+                                    <!-- Agregamos el campo cuenta -->
+                                    <div class="row">
+                                        <input type="text" name="cuenta" placeholder="Número de cuenta">
+                                    </div>
                                     <div class="row">
                                         <input type="text" name="monto" placeholder="Ingrese monto a invertir">
                                     </div>
@@ -53,8 +58,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col s7">
-                        <div id="resultado"></div>
+                    <!-- Modificamos el tamanno de este contenedor para la tabla -->
+                    <div class="col s8">
+                            <table  id="resultado">
+                                <thead>
+                                    <tr>
+                                        <!-- Colocamos lo campos que vamos a mostrar -->
+                                        <th>Cuenta</th>
+                                        <th>Fecha</th>
+                                        <th>Invertido</th>
+                                        <th>Plazo</th>
+                                        <th>TNA</th>
+                                        <th>TEA</th>
+                                        <th>Cierre</th>
+                                        <th>Capital</th>
+                                    </tr>
+                                </thead>
+                            </table>
                     </div>
                 </div>
             </div>
