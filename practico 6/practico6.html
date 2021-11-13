@@ -8,6 +8,8 @@
     
         [Update] En esta etapa agregamos objetos a la simulacion.
         [Update] Agregamos un array
+        [Update] se puede ordenar de difrentes maneras 
+        [Update] El simulador permite validar
         
 -->
 
@@ -22,12 +24,11 @@
         <title>Simulador interactivo</title>
         <!-- Incluyo Materialize -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    </head>
     <body>
         <div>
             <nav class="light-blue darken-4">
                 <div class="container">
-                    <span class="brand-logo">Calculamos Plazo Fijo</span>
+                    <span class="brand-logo">Calculador Plazo Fijo</span>
                 </div>
             </nav>
             <div class="container">
@@ -39,41 +40,44 @@
                                 <form onsubmit="return false;">
                                     <!-- Agregamos el campo cuenta -->
                                     <div class="row">
-                                        <input type="text" name="cuenta" placeholder="Número de cuenta">
+                                        <input type="text" name="cuenta" id="cuenta" placeholder="Número de cuenta">
                                     </div>
                                     <div class="row">
-                                        <input type="text" name="monto" placeholder="Ingrese monto a invertir">
+                                        <input type="text" name="monto" id="monto" placeholder="Ingrese monto a invertir">
                                     </div>
                                     <div class="row">
-                                        <input type="text" name="interes" placeholder="Interes anual">
+                                        <input type="text" name="interes" id="interes" placeholder="Interes anual">
                                     </div>
                                     <div class="row">
-                                        <input type="text" name="plazo" placeholder="Cantidad de dias">
+                                        <input type="text" name="plazo" id="plazo" placeholder="Cantidad de dias">
                                     </div>
                                     <!-- Funcion para mostrar los resultados -->
                                     <button type="submit" class="btn light-blue darken-4" onclick="showResult();">Calcular</button>
                                     <!-- Recargamos la pagina para limpiar formularios -->
-                                    <button type="reset" class="btn  red accent-1 darken-4" onclick="location.reload();">Limpiar</button>
+                                    <button type="reset" class="btn  red accent-1" onclick="location.reload();">Limpiar</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <!-- Modificamos el tamanno de este contenedor para la tabla -->
                     <div class="col s8">
-                            <table  id="resultado">
+                            <table>
                                 <thead>
                                     <tr>
                                         <!-- Colocamos lo campos que vamos a mostrar -->
                                         <th>Cuenta</th>
-                                        <th>Fecha</th>
-                                        <th>Invertido</th>
-                                        <th>Plazo</th>
-                                        <th>TNA</th>
-                                        <th>TEA</th>
-                                        <th>Cierre</th>
-                                        <th>Capital</th>
+                                        <th><a href="#" onclick="ordenarArrays(1);">Fecha</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(2);">Invertido</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(3);">Plazo</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(4);">TNA</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(5);">TEA</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(6);">Cierre</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(7);">Capital</a></th>
                                     </tr>
                                 </thead>
+                                <tbody id="resultado">
+
+                                </tbody>
                             </table>
                     </div>
                 </div>
