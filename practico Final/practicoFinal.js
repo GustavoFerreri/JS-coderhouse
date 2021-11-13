@@ -52,6 +52,7 @@ class plazoFijo{
         return parseFloat(this.montoInvertido*this.interesMensual()/100);
     }
 
+    // Muestra las fechas
     mostrarFecha() {
         return this.formatoFecha(this.#fechaPf);
     }
@@ -61,6 +62,7 @@ class plazoFijo{
         return this.montoInvertido+this.interesMensualPercibido();
     }
 
+    // Metodo para formatear la fecha
     formatoFecha(dia, formato = 'dd/mm/yyyy') {
         const map = {
             dd: dia.getDate(),
@@ -94,8 +96,10 @@ function crearTabla(datosTabla) {
         cuerpoTabla.appendChild(fila);
     });
 }
+
+// Funcion para ordenar los datos
 function ordenarArrays(opcion) {
-    cuentaPlazoFijo.sort((a, b)=>{
+    cuentaPlazoFijo.sort((a, b) => {
         if (a[opcion] < b[opcion]) {
             return -1;
         }
@@ -105,52 +109,61 @@ function ordenarArrays(opcion) {
         return 0;
     });
     crearTabla(cuentaPlazoFijo);
-    M.toast({html: 'Ordenamos'});
+    M.toast({
+        html: 'Ordenamos'
+    });
 }
+
 // Mostramos los resultados por pantalla
-function showResult() {   
-    // creamos el objeto con los datos del plazo fijo, tomando los datos del formulario
+function showResult() {
+    /* 
+        creamos el objeto con los datos del plazo fijo, tomando los datos del formulario 
+        Establecemos un control de formulario.-
+    */
     if (document.getElementsByName('cuenta')[0].value != '' &&
         document.getElementsByName('monto')[0].value != '' &&
         document.getElementsByName('interes')[0].value != '' &&
         document.getElementsByName('plazo')[0].value != '') {
-            let usrPf = new plazoFijo(
-                parseInt(document.getElementsByName('cuenta')[0].value),
-                parseInt(document.getElementsByName("monto")[0].value), 
-                parseInt(document.getElementsByName("interes")[0].value), 
-                parseInt(document.getElementsByName("plazo")[0].value)
-                );     
-            
-                // Agregamos el objeto al array
-            cuentaPlazoFijo.push([
-                usrPf.cuenta,
-                usrPf.mostrarFecha(),
-                "$" + usrPf.montoInvertido,
-                usrPf.plazo,
-                usrPf.interesAnual.toFixed(2) + "%",
-                usrPf.tasaEfectivaAnual() + "%",
-                usrPf.plazoCierre(),
-                "$" + usrPf.totalPercibido().toFixed(2)
-            ]);
-            
-            // Mostramos los resultados por pantalla
-            // Primero cargamos el objetivo de los datos
-            crearTabla(cuentaPlazoFijo);
-            M.toast({html: 'Plazo fijo cargado'});
-            
-            // Mostramos por consola
-            console.log("Fecha: " + usrPf.mostrarFecha());
-            console.log("Se invirtio: $" + usrPf.montoInvertido);
-            console.log("En un plazo de " + usrPf.plazo + " dias");
-            console.log("La tasa anual nominal (TNA) es: " + usrPf.interesAnual.toFixed(2)  + "%");
-            console.log("La tasa anual efectiva (TEA) es: " + usrPf.tasaEfectivaAnual() + "%");
-            console.log("El interes mensual percibido es: $" + usrPf.interesMensualPercibido().toFixed(2));
-            console.log("Fecha destino: " + usrPf.plazoCierre());
-            console.log("El total percibido en el periodo es: $" + usrPf.totalPercibido().toFixed(2));
-        
-    }
-    else {
-        M.toast({html: 'Debe completar todos los campos'});
+        let usrPf = new plazoFijo(
+            parseInt(document.getElementsByName('cuenta')[0].value),
+            parseInt(document.getElementsByName("monto")[0].value),
+            parseInt(document.getElementsByName("interes")[0].value),
+            parseInt(document.getElementsByName("plazo")[0].value)
+        );
+
+        // Agregamos el objeto al array
+        cuentaPlazoFijo.push([
+            usrPf.cuenta,
+            usrPf.mostrarFecha(),
+            "$" + usrPf.montoInvertido,
+            usrPf.plazo,
+            usrPf.interesAnual.toFixed(2) + "%",
+            usrPf.tasaEfectivaAnual() + "%",
+            usrPf.plazoCierre(),
+            "$" + usrPf.totalPercibido().toFixed(2)
+        ]);
+
+        // Mostramos los resultados por pantalla
+        // Primero cargamos el objetivo de los datos
+        crearTabla(cuentaPlazoFijo);
+        M.toast({
+            html: 'Plazo fijo cargado'
+        });
+
+        // Mostramos por consola
+        console.log("Fecha: " + usrPf.mostrarFecha());
+        console.log("Se invirtio: $" + usrPf.montoInvertido);
+        console.log("En un plazo de " + usrPf.plazo + " dias");
+        console.log("La tasa anual nominal (TNA) es: " + usrPf.interesAnual.toFixed(2) + "%");
+        console.log("La tasa anual efectiva (TEA) es: " + usrPf.tasaEfectivaAnual() + "%");
+        console.log("El interes mensual percibido es: $" + usrPf.interesMensualPercibido().toFixed(2));
+        console.log("Fecha destino: " + usrPf.plazoCierre());
+        console.log("El total percibido en el periodo es: $" + usrPf.totalPercibido().toFixed(2));
+    } else {
+        // Mensaje de error y focus sobre el primer elemento
+        M.toast({
+            html: 'Debe completar todos los campos'
+        });
         document.getElementsByName('cuenta')[0].focus();
     }
 }
