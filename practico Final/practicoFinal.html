@@ -10,6 +10,9 @@
         [Update] Agregamos un array
         [Update] se puede ordenar de difrentes maneras 
         [Update] El simulador permite validar
+        [Update] Se incorpora contenido de DOM, y eventos
+        [Fix] Se corrige error en eliminar registros
+        [Update] Se incorpora varios estilos a la pagina
         
 -->
 
@@ -21,12 +24,11 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Simulador interactivo</title>
         <!-- Incluyo Materialize -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <body>
         <div>
-            <nav class="light-blue darken-4">
+            <nav class="blue darken-4">
                 <div class="container">
                     <span class="brand-logo">Calculador Plazo Fijo</span>
                 </div>
@@ -36,8 +38,9 @@
                     <div class="col s4">
                         <div class="card">
                             <div class="card-content">
+                                <span class="card-title">Informacion de la operación</span>
                                 <!-- Agregamos una funcion para evitar el envio del formulario -->
-                                <form onsubmit="return false;">
+                                <form>
                                     <!-- Agregamos el campo cuenta -->
                                     <div class="row">
                                         <input type="text" name="cuenta" id="cuenta" placeholder="Número de cuenta">
@@ -52,9 +55,11 @@
                                         <input type="text" name="plazo" id="plazo" placeholder="Cantidad de dias">
                                     </div>
                                     <!-- Funcion para mostrar los resultados -->
-                                    <button type="submit" class="btn light-blue darken-4" onclick="showResult();">Calcular</button>
-                                    <!-- Recargamos la pagina para limpiar formularios -->
-                                    <button type="reset" class="btn  red accent-1" onclick="location.reload();">Limpiar</button>
+                                    <button type="submit" class="btn light-blue darken-4" id="btnCalcular">Calcular</button>
+                                    <!-- limpiar formularios -->
+                                    <button type="reset" class="btn red accent-1" id="btnLimpiar">Limpiar</button>
+                                    <!-- Se agrega boton de recarga de la web -->
+                                    <button type="reset" class="btn red darken-2" id="btnReload">Reload</button>
                                 </form>
                             </div>
                         </div>
@@ -64,19 +69,22 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <!-- Colocamos lo campos que vamos a mostrar -->
+                                        <!-- 
+                                            Colocamos lo campos que vamos a mostrar 
+                                            [update] se agrega una cabecera para la id de la orden
+                                        -->
+                                        <th>Orden Id</th>
                                         <th>Cuenta</th>
-                                        <th><a href="#" onclick="ordenarArrays(1);">Fecha</a></th>
-                                        <th><a href="#" onclick="ordenarArrays(2);">Invertido</a></th>
-                                        <th><a href="#" onclick="ordenarArrays(3);">Plazo</a></th>
-                                        <th><a href="#" onclick="ordenarArrays(4);">TNA</a></th>
-                                        <th><a href="#" onclick="ordenarArrays(5);">TEA</a></th>
-                                        <th><a href="#" onclick="ordenarArrays(6);">Cierre</a></th>
-                                        <th><a href="#" onclick="ordenarArrays(7);">Capital</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(2);">Fecha</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(3);">Invertido</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(4);">Plazo</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(5);">TNA</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(6);">TEA</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(7);">Cierre</a></th>
+                                        <th><a href="#" onclick="ordenarArrays(8);">Capital</a></th>
                                     </tr>
                                 </thead>
                                 <tbody id="resultado">
-
                                 </tbody>
                             </table>
                     </div>
@@ -85,7 +93,7 @@
         </div>
         <!-- Incluimos el archivo JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="practico6.js"></script>
+        <script src="practicoFinal.js"></script>
 
     </body>
 </html>
