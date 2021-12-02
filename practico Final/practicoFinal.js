@@ -25,7 +25,7 @@ class plazoFijo{
     /* 
         Establecemos el momento exacto donde se carga la orden tomando la fecha actual, 
         de esta manera corregimos un error que nos arrojaba modificando en cada carga la fecha
-        quitamos el formateo para que de la fecha sin procesar, y la colocamos como ambito privado utilizando 
+        quitamos el formateo para que de la fecha sin procesar, y la colocamos como ambito privado utilizando numeral
     */
     #fechaPf = new Date(Date.now());
     // Construimos el objeto con los datos del plazo fijo
@@ -34,31 +34,26 @@ class plazoFijo{
         // Agregamos el id de la operacion autoincremental, y su propiedad para el pf
         idOrden++;
         this.idOrden = idOrden;
-        this.cuenta = cuenta;
-        this.montoInvertido = montoInvertido;
-        this.interesAnual = interesAnual;
-        this.plazo = plazo;
+        this.cuenta = parseInt(cuenta);
+        this.montoInvertido = parseInt(montoInvertido);
+        this.interesAnual = parseInt(interesAnual);
+        this.plazo = parseInt(plazo);
     }
-    // calculamos Tasa mensual en base a la tasa nominal anual (TNA)
-    interesMensual() {
-        return this.interesAnual*(this.plazo/anno);
-    }
+    // calculamos Tasa mensual en base a la tasa nominal anual (TNA) Usamos arrow funcion
+    interesMensual =()=> this.interesAnual*(this.plazo/anno); 
+
     // Calculamos la Tasa Efectiva Anual (TEA) tomando los datos del objeto
-    tasaEfectivaAnual() {
-        return (((1 + (this.interesMensual()/100)) ** (anno/this.plazo) - 1)*100).toFixed(2);
-    }
+    tasaEfectivaAnual =()=> (((1 + (this.interesMensual()/100)) ** (anno/this.plazo) - 1)*100).toFixed(2);
+
     // Calculamos el monto percibido en el periodo
-    interesMensualPercibido() {
-        return parseFloat(this.montoInvertido*this.interesMensual()/100);
-    }
+    interesMensualPercibido =()=> parseFloat(this.montoInvertido*this.interesMensual()/100);
+
     // Muestra las fechas
-    mostrarFecha() {
-        return this.formatoFecha(this.#fechaPf);
-    }
+    mostrarFecha =()=> this.formatoFecha(this.#fechaPf);
+
     // Calculamos el total percibido
-    totalPercibido() {
-        return this.montoInvertido+this.interesMensualPercibido();
-    }
+    totalPercibido =()=> this.montoInvertido+this.interesMensualPercibido();
+
     // Metodo para formatear la fecha
     formatoFecha(dia, formato = 'dd/mm/yyyy') {
         const map = {
@@ -79,18 +74,17 @@ class plazoFijo{
 
 // Funcion para crear filas
 function crearTabla(datosTabla) {
-    console.log(datosTabla);
     var cuerpoTabla = document.getElementById('resultado');
     // limipiamos la tabla, para cargar los nuevos elementos
     cuerpoTabla.innerHTML = '';
-    datosTabla.forEach(function (datosFilas) {
+    datosTabla.forEach(datosFilas=>{
         var fila = document.createElement('tr');
         // Agregamos un boton para eliminar una orden
         var btnDel = document.createElement('a');
         btnDel.className = 'valign-wrapper btn-floating btn-small red';
         btnDel.addEventListener('click', eliminarElemento);
         btnDel.appendChild(document.createTextNode('-'));
-        datosFilas.forEach(function (datosCeldas) {
+        datosFilas.forEach(datosCeldas=>{
             var celda = document.createElement('td');
             celda.appendChild(document.createTextNode(datosCeldas));
             fila.appendChild(celda);
@@ -122,27 +116,19 @@ function eliminarElemento(e){
     let cuenta = padre.querySelector("td").textContent;
     let index = cuentaPlazoFijo.findIndex(elemeno => elemeno[0] == cuenta);
     cuentaPlazoFijo.splice(index, 1);
-    M.toast({
-        html: `Se elimino la Orden id ${cuenta}`
-    });
+    msgBox(`Se elimino la Orden id ${cuenta}`); 
     crearTabla(cuentaPlazoFijo);
 }
 
 // Funcion para ordenar los datos
 function ordenarArrays(opcion) {
     cuentaPlazoFijo.sort((a, b) => {
-        if (a[opcion] < b[opcion]) {
-            return -1;
-        }
-        if (a[opcion] > b[opcion]) {
-            return 1;
-        }
+        if (a[opcion] < b[opcion]) { return -1; }
+        if (a[opcion] > b[opcion]) { return 1; }
         return 0;
     });
     crearTabla(cuentaPlazoFijo);
-    M.toast({
-        html: 'Ordenamos'
-    });
+    msgBox('Ordenamos');
 }
 
 // Mostramos los resultados por pantalla
@@ -151,16 +137,12 @@ function agregarPf() {
         creamos el objeto con los datos del plazo fijo, tomando los datos del formulario 
         Establecemos un control de formulario.-
     */
-    if (document.getElementsByName('cuenta')[0].value != '' &&
-        document.getElementsByName('monto')[0].value != '' &&
-        document.getElementsByName('interes')[0].value != '' &&
-        document.getElementsByName('plazo')[0].value != '') {
-        let usrPf = new plazoFijo(
-            parseInt(document.getElementsByName('cuenta')[0].value),
-            parseInt(document.getElementsByName("monto")[0].value),
-            parseInt(document.getElementsByName("interes")[0].value),
-            parseInt(document.getElementsByName("plazo")[0].value)
-        );
+    let cuenta = document.getElementsByName('cuenta')[0].value;
+    let monto = document.getElementsByName('monto')[0].value;
+    let interes = document.getElementsByName('interes')[0].value;
+    let plazo = document.getElementsByName('plazo')[0].value;
+    if (cuenta != '' && monto != '' && interes != '' && plazo != '') {
+        let usrPf = new plazoFijo(cuenta, monto, interes, plazo); 
 
         // Agregamos el objeto al array
         cuentaPlazoFijo.push([
@@ -178,19 +160,19 @@ function agregarPf() {
         // Mostramos los resultados por pantalla
         // Primero cargamos el objetivo de los datos
         crearTabla(cuentaPlazoFijo);
-        M.toast({
-            html: 'Plazo fijo cargado'
-        });
+        msgBox('Plazo fijo cargado');
     } else {
         // Mensaje de error y focus sobre el primer elemento
-        M.toast({
-            html: 'Debe completar todos los campos'
-        });       
+        msgBox('Debe completar todos los campos');       
     }
 }
 
+// Simplifimamos el mensaje de alerta
+msgBox=(txt)=> M.toast({ html: txt});
+
 // Modificamos el html para poder interactuar directamente sobre el DOM desde javascript
-window.onload = function () {
+// Funcion de inicializacion de los elementos
+window.onload =()=> {
 
     // Nombre de la web
     document.title = 'Plazo Fijo';
@@ -200,32 +182,18 @@ window.onload = function () {
 
     // Prevenimos el submit del formulario
     let formulario = document.querySelectorAll("form");
-    formulario.forEach(function (form) {
-        form.addEventListener('submit', e=>{e.preventDefault();})
-    });
+    formulario.forEach(form => {form.addEventListener('submit', e=>{e.preventDefault();})});
 
     /* SECCION FUNCIONES DE LOS BOTONES */
     // Boton para agregar un nuevo plazo fijo
     let btnCalcular = document.getElementById('btnCalcular');
-    btnCalcular.addEventListener('mousedown', e=>{
-        if (e.button==0){
-            agregarPf();
-        }
-    });
+    btnCalcular.addEventListener('mousedown', e=>{ if (e.button==0){ agregarPf(); }});
 
     // Boton para limpiar inputs
     let btnLimpiar = document.getElementById('btnLimpiar');
-    btnLimpiar.addEventListener('mousedown', e=>{
-        if (e.button==0){
-            document.reload();
-        }
-    });
+    btnLimpiar.addEventListener('mousedown', e=>{ if (e.button==0){ document.reload(); }});
 
     // Boton para recargar web
     let btnReload = document.getElementById('btnReload');
-    btnReload.addEventListener('mousedown', e=>{
-        if (e.button==0){
-            location.reload();
-        }
-    });
+    btnReload.addEventListener('mousedown', e=>{ if (e.button==0){ location.reload(); }});
 };
