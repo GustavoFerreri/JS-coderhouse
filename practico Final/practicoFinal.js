@@ -73,7 +73,7 @@ class plazoFijo{
 }
 
 // Funcion para crear filas
-function crearTabla(datosTabla) {
+crearTabla =(datosTabla)=> {
     var cuerpoTabla = document.getElementById('resultado');
     // limipiamos la tabla, para cargar los nuevos elementos
     cuerpoTabla.innerHTML = '';
@@ -81,9 +81,11 @@ function crearTabla(datosTabla) {
         var fila = document.createElement('tr');
         // Agregamos un boton para eliminar una orden
         var btnDel = document.createElement('a');
-        btnDel.className = 'valign-wrapper btn-floating btn-small red';
-        btnDel.addEventListener('click', eliminarElemento);
-        btnDel.appendChild(document.createTextNode('-'));
+        with(btnDel){
+            className = 'valign-wrapper btn-floating btn-small red';
+            addEventListener('click', eliminarElemento);
+            appendChild(document.createTextNode('-'));
+        }
         datosFilas.forEach(datosCeldas=>{
             var celda = document.createElement('td');
             celda.appendChild(document.createTextNode(datosCeldas));
@@ -98,7 +100,7 @@ function crearTabla(datosTabla) {
 }
 
 // Creamos una funcion para eliminar un elemento del array
-function eliminarElemento(e){
+eliminarElemento=(e)=>{
     /*
         Utilizamos el metodo que se utilizo en clases para buscar el elemento padre, 
         y con este identificar el elemento hijo, especificamente el primero
@@ -114,14 +116,14 @@ function eliminarElemento(e){
     let hijo = e.target;
     let padre = hijo.parentNode.parentNode;
     let cuenta = padre.querySelector("td").textContent;
-    let index = cuentaPlazoFijo.findIndex(elemeno => elemeno[0] == cuenta);
+    let index = cuentaPlazoFijo.findIndex(elemento => elemento[0] == cuenta);
     cuentaPlazoFijo.splice(index, 1);
     msgBox(`Se elimino la Orden id ${cuenta}`); 
     crearTabla(cuentaPlazoFijo);
 }
 
 // Funcion para ordenar los datos
-function ordenarArrays(opcion) {
+ordenarArrays = (opcion) => {   
     cuentaPlazoFijo.sort((a, b) => {
         if (a[opcion] < b[opcion]) { return -1; }
         if (a[opcion] > b[opcion]) { return 1; }
@@ -132,7 +134,7 @@ function ordenarArrays(opcion) {
 }
 
 // Mostramos los resultados por pantalla
-function agregarPf() {
+agregarPf = () => {
     /* 
         creamos el objeto con los datos del plazo fijo, tomando los datos del formulario 
         Establecemos un control de formulario.-
@@ -145,17 +147,19 @@ function agregarPf() {
         let usrPf = new plazoFijo(cuenta, monto, interes, plazo); 
 
         // Agregamos el objeto al array
-        cuentaPlazoFijo.push([
-            usrPf.idOrden,
-            usrPf.cuenta,
-            usrPf.mostrarFecha(),
-            "$" + usrPf.montoInvertido,
-            usrPf.plazo,
-            usrPf.interesAnual.toFixed(2) + "%",
-            usrPf.tasaEfectivaAnual() + "%",
-            usrPf.plazoCierre(),
-            "$" + usrPf.totalPercibido().toFixed(2)
-        ]);
+        with (usrPf) {
+            cuentaPlazoFijo.push([
+                idOrden,
+                cuenta,
+                mostrarFecha(),
+                "$" + montoInvertido,
+                plazo,
+                interesAnual.toFixed(2) + "%",
+                tasaEfectivaAnual() + "%",
+                plazoCierre(),
+                "$" + totalPercibido().toFixed(2)
+            ]);
+        };
 
         // Mostramos los resultados por pantalla
         // Primero cargamos el objetivo de los datos
