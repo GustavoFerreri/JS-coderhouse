@@ -3,6 +3,7 @@
 const anno = 360
 let cuentaPlazoFijo = []
 let idOrden = 0
+
 class plazoFijo{
     #fechaPf = new Date(Date.now())
     constructor(cuenta, montoInvertido, interesAnual, plazo) {
@@ -104,26 +105,14 @@ agregarPf = () => {
     }
 }
 
-msgBox=(txt)=> M.toast({ html: txt})
-
 $(window).ready(()=>{
     document.title = 'Plazo Fijo'
     document.body.className = 'grey lighten-3'
-    let formulario = document.querySelectorAll("form")
-    formulario.forEach(form => {form.addEventListener('submit', e=>{e.preventDefault();})})
-    $('#btnCalcular').hide(0).fadeIn(750)
-    $('#btnLimpiar').hide(0).delay(200).fadeIn(750)
-    $('#btnReload').hide(0).delay(300).fadeIn(750)
-    $('#btnCalcular').click(()=>{agregarPf()})
-    $('#btnLimpiar').click(()=>{document.reload()})
-    $('#btnReload').click(()=>{location.reload()})
-    createElementHtml('Conformamos el Plazo Fijo')
+    let bluePanel = new dollarPanel('Blue', 'dollar', 'dollar.jpeg')
+    bluePanel.showPanel()
+    let pfPanel = new formCarga('Plazo Fijo', 'interactivePanel',
+        ['cuenta', 'monto', 'interes', 'plazo'],
+        ['Calcular', 'Limpiar', 'Reload'],
+        'pf.jpeg')
+    pfPanel.createForm()
 })
-
-createElementHtml=(title)=>{
-    $('<div/>', {class: 'card'}).appendTo('#interactivePanel')
-    $('<div/>', {class: 'card-content'}).appendTo('.card')
-    $(`<span>${title}</span>`, {class: 'card-title'}).appendTo('.card-content')
-    $('<form/>').appendTo('.card-content')
-
-}

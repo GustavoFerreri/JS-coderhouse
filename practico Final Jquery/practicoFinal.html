@@ -21,6 +21,8 @@
                 Reducir codigo
         [Fix] Se eliminan comentarios
         [Update] Primera etapa de implementacion de Jquery
+        [Update] Se retira semicolons de todo el coodigo JS
+        [Update] Se agrega pequenna animacion con Jquery
 -->
 
 <!DOCTYPE html>
@@ -49,8 +51,8 @@
             </nav>
             <div class="container">
                 <div class="row">
-                    <div class="col s4">
-                        <div class="card">
+                    <div class="col s4" id="interactivePanel">
+                        <!-- <div class="card">
                             <div class="card-content">
                                 <span class="card-title">Informacion de la operación</span>
                                 <form>
@@ -71,26 +73,25 @@
                                     <button type="reset" class="btn red darken-2" id="btnReload">Reload</button>
                                 </form>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col s8">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Orden Id</th>
-                                        <th>Cuenta</th>
-                                        <th><a href="#" onclick="ordenarArrays(2);">Fecha</a></th>
-                                        <th><a href="#" onclick="ordenarArrays(3);">Invertido</a></th>
-                                        <th><a href="#" onclick="ordenarArrays(4);">Plazo</a></th>
-                                        <th><a href="#" onclick="ordenarArrays(5);">TNA</a></th>
-                                        <th><a href="#" onclick="ordenarArrays(6);">TEA</a></th>
-                                        <th><a href="#" onclick="ordenarArrays(7);">Cierre</a></th>
-                                        <th><a href="#" onclick="ordenarArrays(8);">Capital</a></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="resultado">
-                                </tbody>
-                            </table>
+                        <table id='tableId'>
+                            <thead>
+                                <tr>
+                                    <th>Orden Id</th>
+                                    <th>Cuenta</th>
+                                    <th><a href="#" onclick="ordenarArrays(2);">Fecha</a></th>
+                                    <th><a href="#" onclick="ordenarArrays(3);">Invertido</a></th>
+                                    <th><a href="#" onclick="ordenarArrays(4);">Plazo</a></th>
+                                    <th><a href="#" onclick="ordenarArrays(5);">TNA</a></th>
+                                    <th><a href="#" onclick="ordenarArrays(6);">TEA</a></th>
+                                    <th><a href="#" onclick="ordenarArrays(7);">Cierre</a></th>
+                                    <th><a href="#" onclick="ordenarArrays(8);">Capital</a></th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultado"></tbody>
+                        </table>
                     </div>
                 </div>
             </div>

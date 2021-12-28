@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div>
+            <nav class="blue darken-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col 2">
+                            <i class="large material-icons">account_balance</i>
+                        </div>
+                        <div class="col 9">
+                            <span class="brand-logo">Simulador Plazo Fijo</span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div class="container">
+                <div class="row">
+                    <div class='col s2' id="dollar"></div>
+                    <div class="col s4" id="interactivePanel"></div>
+                    <div class="col s6">
+                        <table id='tableId'>
+                            <thead>
+                                <tr>
+                                    <th>Orden Id</th>
+                                    <th>Cuenta</th>
+                                    <th><a href="#" onclick="ordenarArrays(2);">Fecha</a></th>
+                                    <th><a href="#" onclick="ordenarArrays(3);">Invertido</a></th>
+                                    <th><a href="#" onclick="ordenarArrays(4);">Plazo</a></th>
+                                    <th><a href="#" onclick="ordenarArrays(5);">TNA</a></th>
+                                    <th><a href="#" onclick="ordenarArrays(6);">TEA</a></th>
+                                    <th><a href="#" onclick="ordenarArrays(7);">Cierre</a></th>
+                                    <th><a href="#" onclick="ordenarArrays(8);">Capital</a></th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultado"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src='panelCreate.js'></script>
+        <script src="practicoFinal.js"></script>
+    </body>
+</html>
