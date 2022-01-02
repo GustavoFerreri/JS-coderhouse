@@ -2,8 +2,8 @@
 <div align="center">
   <h3 align="center">Javascript</h3>
 
-  <p align="center">
-    Curso de JS Coderhouse
+  <p align="Center">Curso de JS Coderhouse</P>
+  <p align="Left">
     <br />
     <br />
         Camada: <b>19990</b><br />
@@ -13,7 +13,6 @@
         Trabajo final: <b>Simulador plazo fijo</b>
   </p>
 </div>
-<hr />
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
