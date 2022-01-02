@@ -6,14 +6,14 @@
     Curso de JS Coderhouse
     <br />
     <br />
-        Camada: <b>19990</b><br>
-        Profesor: Maximiliano Torreblanca
-        Tutor: Facundo Villagra
-        Alumno: Ferreri, Gustavo
-        Trabajo final: Simulador plazo fijo
+        Camada: <b>19990</b><br />
+        Profesor: <b>Maximiliano Torreblanca </b> <br />
+        Tutor: <b>Facundo Villagra</b><br />
+        Alumno: <b>Ferreri, Gustavo</b><br />
+        Trabajo final: <b>Simulador plazo fijo</b>
   </p>
 </div>
-
+<hr />
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
