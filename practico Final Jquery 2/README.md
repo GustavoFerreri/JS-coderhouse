@@ -60,6 +60,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
     - [Update] Se retira semicolons de todo el coodigo JS
     - [Update] Se agrega pequenna animacion con Jquery
     - [Update] Se elimina animacion de Jquery
+    - [fix] Se elimina bootstrap icon, se reemplaza por Materialize icon
     - [fix] Para reducir codigo, se crean clases para creacion de elementos DOM
     - [update] Se comienza a implementar modulos de creacion de DOM externos
     - [update] Se implementa Ajax
@@ -68,5 +69,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
     - [fix] Se separa los archivos por carpetas
             Creacion de carpeta img, y js
             Modificacion de los destinos de carga de cada archivo
+    - [update] cambio de nombre html practicoFinal -> index
+    - [update] cambio de nombre js practicoFinal -> generalFunction
 
 <p align="right">(<a href="#top">back to top</a>)</p>
