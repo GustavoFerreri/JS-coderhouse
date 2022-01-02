@@ -14,11 +14,11 @@ class plazoFijo{
         this.interesAnual = parseInt(interesAnual)
         this.plazo = parseInt(plazo)
     }
-    interesMensual =()=> this.interesAnual*(this.plazo/anno)
-    tasaEfectivaAnual =()=> (((1 + (this.interesMensual()/100)) ** (anno/this.plazo) - 1)*100).toFixed(2)
+    interesMensual = () => this.interesAnual*(this.plazo/anno)
+    tasaEfectivaAnual = () => (((1 + (this.interesMensual()/100)) ** (anno/this.plazo) - 1)*100).toFixed(2)
     interesMensualPercibido =()=> parseFloat(this.montoInvertido*this.interesMensual()/100)
-    mostrarFecha =()=> this.formatoFecha(this.#fechaPf)
-    totalPercibido =()=> this.montoInvertido+this.interesMensualPercibido()
+    mostrarFecha = () => this.formatoFecha(this.#fechaPf)
+    totalPercibido = () => this.montoInvertido+this.interesMensualPercibido()
     formatoFecha(dia, formato = 'dd/mm/yyyy') {
         const map = {
             dd: dia.getDate(),
@@ -35,7 +35,7 @@ class plazoFijo{
     }
 }
 
-crearTabla =(datosTabla)=> {
+crearTabla = (datosTabla) => {
     var cuerpoTabla = document.getElementById('resultado')
     cuerpoTabla.innerHTML = ''
     datosTabla.forEach(datosFilas=>{
@@ -58,7 +58,7 @@ crearTabla =(datosTabla)=> {
     });
 }
 
-eliminarElemento=(e)=>{
+eliminarElemento = (e) =>{
     let hijo = e.target
     let padre = hijo.parentNode.parentNode
     let cuenta = padre.querySelector("td").textContent

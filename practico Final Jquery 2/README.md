@@ -10,7 +10,7 @@
         Profesor: Maximiliano Torreblanca
         Tutor: Facundo Villagra
         Alumno: Ferreri, Gustavo
-        Practico 14-15: Simulador
+        Trabajo final: Simulador plazo fijo <small> utilizando JavaScript </small>
   </p>
 </div>
 
@@ -63,5 +63,9 @@ This section should list any major frameworks/libraries used to bootstrap your p
     - [update] Se comienza a implementar modulos de creacion de DOM externos
     - [update] Se implementa Ajax
     - [update] Se implementa README.md en github para extraer texto
+    - [fix] Separacion en Arrow function, buscando standar
+    - [fix] Se separa los archivos por carpetas
+            Creacion de carpeta img, y js
+            Modificacion de los destinos de carga de cada archivo
 
 <p align="right">(<a href="#top">back to top</a>)</p>
