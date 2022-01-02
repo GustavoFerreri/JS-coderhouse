@@ -2,22 +2,23 @@
 
 const anno = 360
 let cuentaPlazoFijo = []
-let idOrden = 0
+let idOrden = 1
+
 class plazoFijo{
     #fechaPf = new Date(Date.now())
-    constructor(cuenta, montoInvertido, interesAnual, plazo) {
-        idOrden++
-        this.idOrden = idOrden
-        this.cuenta = parseInt(cuenta)
-        this.montoInvertido = parseInt(montoInvertido)
-        this.interesAnual = parseInt(interesAnual)
-        this.plazo = parseInt(plazo)
+    constructor() {
+        let inputs = inputValue()
+        this.idOrden = idOrden++
+        this.cuenta = parseInt(inputs[0])
+        this.montoInvertido = parseInt(inputs[1])
+        this.interesAnual = parseInt(inputs[2])
+        this.plazo = parseInt(inputs[3])
     }
-    interesMensual =()=> this.interesAnual*(this.plazo/anno)
-    tasaEfectivaAnual =()=> (((1 + (this.interesMensual()/100)) ** (anno/this.plazo) - 1)*100).toFixed(2)
+    interesMensual = () => this.interesAnual*(this.plazo/anno)
+    tasaEfectivaAnual = () => (((1 + (this.interesMensual()/100)) ** (anno/this.plazo) - 1)*100).toFixed(2)
     interesMensualPercibido =()=> parseFloat(this.montoInvertido*this.interesMensual()/100)
-    mostrarFecha =()=> this.formatoFecha(this.#fechaPf)
-    totalPercibido =()=> this.montoInvertido+this.interesMensualPercibido()
+    mostrarFecha = () => this.formatoFecha(this.#fechaPf)
+    totalPercibido = () => this.montoInvertido+this.interesMensualPercibido()
     formatoFecha(dia, formato = 'dd/mm/yyyy') {
         const map = {
             dd: dia.getDate(),
@@ -34,7 +35,7 @@ class plazoFijo{
     }
 }
 
-crearTabla =(datosTabla)=> {
+crearTabla = (datosTabla) => {
     var cuerpoTabla = document.getElementById('resultado')
     cuerpoTabla.innerHTML = ''
     datosTabla.forEach(datosFilas=>{
@@ -57,7 +58,7 @@ crearTabla =(datosTabla)=> {
     });
 }
 
-eliminarElemento=(e)=>{
+eliminarElemento = (e) =>{
     let hijo = e.target
     let padre = hijo.parentNode.parentNode
     let cuenta = padre.querySelector("td").textContent
@@ -77,13 +78,15 @@ ordenarArrays = (opcion) => {
     msgBox('Ordenamos')
 }
 
+inputValue = () => {
+    let inputs=[]
+    $('input').each((index, input) =>{ if ($(input).val()!=''){ inputs.push($(input).val()) }})
+    return inputs
+}
+
 agregarPf = () => {
-    let cuenta = $("input[name=cuenta]").val()
-    let monto = $("input[name=monto]").val()
-    let interes = $("input[name=interes]").val()
-    let plazo = $("input[name=plazo]").val()
-    if (cuenta != '' && monto != '' && interes != '' && plazo != '') {
-        let usrPf = new plazoFijo(cuenta, monto, interes, plazo)
+    if (inputValue().length>1) {
+        let usrPf = new plazoFijo()
         with (usrPf) {
             cuentaPlazoFijo.push([
                 idOrden,
@@ -104,26 +107,12 @@ agregarPf = () => {
     }
 }
 
-msgBox=(txt)=> M.toast({ html: txt})
-
 $(window).ready(()=>{
-    document.title = 'Plazo Fijo'
-    document.body.className = 'grey lighten-3'
-    let formulario = document.querySelectorAll("form")
-    formulario.forEach(form => {form.addEventListener('submit', e=>{e.preventDefault();})})
-    $('#btnCalcular').hide(0).fadeIn(750)
-    $('#btnLimpiar').hide(0).delay(200).fadeIn(750)
-    $('#btnReload').hide(0).delay(300).fadeIn(750)
-    $('#btnCalcular').click(()=>{agregarPf()})
-    $('#btnLimpiar').click(()=>{document.reload()})
-    $('#btnReload').click(()=>{location.reload()})
-    createElementHtml('Conformamos el Plazo Fijo')
+    let bluePanel = new dollarPanel('Blue', 'dollar', 'dollar.jpeg')
+    bluePanel.showPanel()
+    let pfPanel = new formCarga('Plazo Fijo', 'interactivePanel',
+        ['cuenta', 'monto', 'interes', 'plazo'],
+        ['Calcular', 'Limpiar', 'Reload'],
+        'pf.jpeg')
+    pfPanel.createForm()
 })
-
-createElementHtml=(title)=>{
-    $('<div/>', {class: 'card'}).appendTo('#interactivePanel')
-    $('<div/>', {class: 'card-content'}).appendTo('.card')
-    $(`<span>${title}</span>`, {class: 'card-title'}).appendTo('.card-content')
-    $('<form/>').appendTo('.card-content')
-
-}

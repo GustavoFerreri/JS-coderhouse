@@ -71,5 +71,16 @@ This section should list any major frameworks/libraries used to bootstrap your p
             Modificacion de los destinos de carga de cada archivo
     - [update] cambio de nombre html practicoFinal -> index
     - [update] cambio de nombre js practicoFinal -> generalFunction
+    - [fix] Se quita html modificado en js, aplicando directamente en html
+    - [fix] Se optimiza codigo recorriendo inputs
+            Creamos una function inputValue
+                Recorre y carga en un array 
+                Validacion dentro de agregarPf aprovechando conteo de array
+            Eliminamos codigo duplicado
+    - [fix] Modificacion en idOrden
+            Se inicializa en 1
+            eliminamos la variable regional de la clase PF
+            Aumentamos el conteo directamente en la propiedad de la clase
+    - [update] Preparamos Github para entrega final
 
 <p align="right">(<a href="#top">back to top</a>)</p>
