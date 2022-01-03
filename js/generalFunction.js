@@ -109,7 +109,7 @@ agregarPf = () => {
 
 $(window).ready(()=>{
     let bluePanel = new dollarPanel('Blue', 'dollar', 'dollar.jpeg')
-    bluePanel.showPanel()
+    bluePanel.showValor()
     let pfPanel = new formCarga('Plazo Fijo', 'interactivePanel',
         ['cuenta', 'monto', 'interes', 'plazo'],
         ['Calcular', 'Limpiar', 'Reload'],

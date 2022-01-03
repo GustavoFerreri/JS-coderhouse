@@ -82,5 +82,11 @@ This section should list any major frameworks/libraries used to bootstrap your p
             eliminamos la variable regional de la clase PF
             Aumentamos el conteo directamente en la propiedad de la clase
     - [update] Preparamos Github para entrega final
+            Quitamos archivos de avances del curso
+            Mejoramos la informacion provista en el README
+            Eliminamos un branch del github
+    - [update] Optimizacion codigo panelCreate
+            Eliminamos metodo createPanel
+            Eliminamos metodo showPanel
 
 <p align="right">(<a href="#top">back to top</a>)</p>

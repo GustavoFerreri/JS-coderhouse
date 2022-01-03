@@ -5,7 +5,6 @@ class panelCarga {
         this.image = image
         if(image) this.imgName = './img/' + nameImg
     }
-    createPanel = () => this.createBody()
     createBody = () =>{
         $('<div/>', {class: 'card', id : `marco_${this.destiny}`}).appendTo(`#${this.destiny}`)
         if(this.image) this.createImg()
@@ -26,7 +25,7 @@ class formCarga extends panelCarga{
         this.action = action
     }
     createForm = () =>{
-        this.createPanel()
+        this.createBody()
         $('<form/>').appendTo(`#content_${this.destiny}`)
         this.createInput(this.fields)
         this.createAction(this.action)
@@ -55,11 +54,8 @@ class dollarPanel extends panelCarga{
     constructor(title, destiny, nameImg, image){
         super(title, destiny, image, nameImg)
     }
-    showPanel = () =>{
-        this.createPanel()
-        this.showValor()
-    }
     showValor = () =>{
+        this.createBody()
         let url = 'https://www.dolarsi.com/api/api.php?type=valoresprincipales'
         $('<div/>', {class: 'row green-text text-darken-4', id: 'sell'}).appendTo(`#content_${this.destiny}`)
         $('<div/>', {class: 'row red-text text-darken-4', id: 'buy'}).appendTo(`#content_${this.destiny}`)
@@ -67,7 +63,6 @@ class dollarPanel extends panelCarga{
             $('<span/>', {text: `Venta ${datos[1]['casa']['venta']}`}).appendTo('#sell')
             $('<span/>', {text: `Compra ${datos[1]['casa']['compra']}`}).appendTo('#buy')
         })
-
     }
 }
 
