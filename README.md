@@ -88,5 +88,25 @@ This section should list any major frameworks/libraries used to bootstrap your p
     - [update] Optimizacion codigo panelCreate
             Eliminamos metodo createPanel
             Eliminamos metodo showPanel
+    - [update] se trabaja en nueva base Html
+            Estructura completa
+              creacion de carpetas html, css, js, img
+              html
+                index.html
+                acount.html
+                inversion.html
+              js
+                elementosGenerales.js
+              css
+                styles.css
+              img
+            Incorporamos favicon
+            Abandonamos la creacion mediante funcion js
+            Eliminamos masterialize,css
+            Incorporamos bootstrap
+    - [update] desarrollo de funcion con fecth
+            Eliminamos $.get
+            simplificamos la funcion al maximo
+            
 
 <p align="right">(<a href="#top">back to top</a>)</p>
