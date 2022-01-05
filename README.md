@@ -107,6 +107,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
     - [update] desarrollo de funcion con fecth
             Eliminamos $.get
             simplificamos la funcion al maximo
-            
+    - [fix] trabajamos en parametros del front, puntualemente sobre la hoja de estilos
+    - [update] Incorporamos la consulta asyncrona en la web enclabado debajo de la barra de navegacion
 
 <p align="right">(<a href="#top">back to top</a>)</p>
