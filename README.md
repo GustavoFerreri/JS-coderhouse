@@ -110,5 +110,10 @@ This section should list any major frameworks/libraries used to bootstrap your p
     - [fix] trabajamos en parametros del front, puntualemente sobre la hoja de estilos
     - [update] Incorporamos la consulta asyncrona en la web enclabado debajo de la barra de navegacion
     - [update] Se retirar archivos en desuso
+    - [fix] funcion fecth con callback
+    - [fix] funcion inputs
+    - [fix] validacion ingreso
+    - [fix] boton eliminar
+    
 
 <p align="right">(<a href="#top">back to top</a>)</p>

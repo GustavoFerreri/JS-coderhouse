@@ -43,3 +43,6 @@ table{
     text-decoration-style: none;
     color: rgb(154, 229, 250);
 }
+td {
+    vertical-align: middle;
+}

@@ -2,6 +2,7 @@ const anno = 360
 let cuentaPlazoFijo = []
 let idOrden = 1
 const url = 'https://www.dolarsi.com/api/api.php?type=valoresprincipales'
+const BASE_URL = 'https://www.dolarsi.com/api/api.php?type=valoresprincipales'
 
 class plazoFijo{
     #fechaPf = new Date(Date.now())
@@ -41,9 +42,9 @@ crearTabla = (datosTabla) => {
         var fila = document.createElement('tr')
         var btnDel = document.createElement('a')
         with(btnDel){
-            className = 'valign-wrapper btn-floating btn-small red'
+            className = 'btn btn-danger btn-sm'
             addEventListener('click', eliminarElemento)
-            appendChild(document.createTextNode('-'))
+            appendChild(document.createTextNode('x'))
         }
         datosFilas.forEach(datosCeldas=>{
             var celda = document.createElement('td')
@@ -67,25 +68,12 @@ eliminarElemento = (e) =>{
     crearTabla(cuentaPlazoFijo)
 }
 
-ordenarArrays = (opcion) => {   
-    cuentaPlazoFijo.sort((a, b) => {
-        if (a[opcion] < b[opcion]) { return -1 }
-        if (a[opcion] > b[opcion]) { return 1 }
-        return 0
-    })
-    crearTabla(cuentaPlazoFijo)
-    msgBox('Ordenamos')
-}
-
-inputValue = () => {
-    let inputs=[]
-    $('input').each((index, input) =>{ if ($(input).val()!=''){ inputs.push($(input).val()) }})
-    return inputs
-}
+ordenarArrays = (opcion) => crearTabla(cuentaPlazoFijo.sort((a,b) => a[opcion] - b[opcion]))
+inputValue = () => $('input').map( (index, input) => $(input).val()!='' && $(input).val())
 
 agregarPf = () => {
     let ingresos = inputValue()
-    if (ingresos.length>3) {
+    if (ingresos.filter((index, val)=>val==false).length == 0) {
         let usrPf = new plazoFijo()
         with (usrPf) {
             cuentaPlazoFijo.push([
@@ -108,30 +96,30 @@ agregarPf = () => {
 }
 
 msgBox = (txt) => {
-    let onjetivo = document.getElementsByClassName('modal-body')
+    let objetivo = document.getElementsByClassName('modal-body')
     if( typeof txt == 'object'){
         let texto = ``
     }
-    
 }
 
-fetchData = async () => await fetch(url).then(res => res.json())
-
-consultaValor = async (name) => (await fetchData().then(datos => datos.filter(elem => elem.casa.nombre.toLowerCase()==name.toLowerCase())))[0]['casa']
-
-incluirValor =(name, callback)=>{
-    callback(name).then(valor=>{
+const fetchCallback = (url = BASE_URL, callback) => fetch(url).then(res => res.json()).then(callback);
+const filtrar = (nombreBuscado) => (listadoMonedas) => listadoMonedas.find(moneda => moneda.casa.nombre.toLowerCase() === nombreBuscado.toLowerCase());
+const getMoneda = (nombre, callback, url = BASE_URL) => fetchCallback (url, filtrar(nombre)).then(callback);
+const incluirValor = (nombre) => 
+    getMoneda(nombre, valor => {
         let texto = document.createElement('span')
-        texto.innerHTML = `<strong> ${valor.nombre} </strong>
-                        <span class="text-danger"><small>venta</small> ${valor.venta}</span>
-                        <span class="text-success"><small>compra</small> ${valor.compra}</span>`
+        texto.innerHTML = `<strong> ${valor.casa.nombre} </strong>
+                        <span class="text-danger"><small>venta</small> ${valor.casa.venta}</span>
+                        <span class="text-success"><small>compra</small> ${valor.casa.compra}</span>`
         document.getElementById('destinoValor').appendChild(texto)
     })
-}
 
-$(window).ready(()=>{
-    incluirValor('Dolar oficial', consultaValor)
-    incluirValor('Dolar blue', consultaValor)
-    $('#btnCalc').on('click', ()=> agregarPf())
+$(window).ready(() => {
+    incluirValor('Dolar oficial')
+    incluirValor('Dolar blue')
+    $('#btnCalc').on('click', () => agregarPf())
     $('#exampleModalCenter').modal('hide')
-})
+}) 
+
+
+// solidity
