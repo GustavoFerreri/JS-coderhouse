@@ -69,14 +69,7 @@ const eliminarElemento = (e) => {
     $('#exampleModalCenter').modal('hide')
 };
 
-const ordenarArrays = (opcion) => {   
-    cuentaPlazoFijo.sort((a, b) => {
-        if (a[opcion] < b[opcion]) return -1
-        if (a[opcion] > b[opcion]) return 1 
-        return 0
-    })
-    crearTabla(cuentaPlazoFijo)
-}
+const ordenarArrays = (opcion) => crearTabla(cuentaPlazoFijo.sort((a, b) => parseInt(a[opcion]) - parseInt(b[opcion]) ));
 
 const inputValue = () => $('input').map((index, input) => $(input).val() != '' && $(input).val());
 
@@ -105,14 +98,14 @@ const agregarPf = () => {
         ]);
     }
     crearTabla(cuentaPlazoFijo);
-    $('#exampleModalCenter').modal('hide')
+    $('#exampleModalCenter').modal('hide');
 }
 
 // Como resolver cuando el mensaje parte de eliminar o de otra zona de la web
 const msgBox = (txt) => {
-    let texto = txt
+    let texto = txt;
     let button = 
-        `<button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>`
+        `<button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>`;
     if (typeof texto == 'object') {
         texto = 
             `<h4>Conformacion Plazo Fijo</h4>
@@ -124,16 +117,16 @@ const msgBox = (txt) => {
             Plazo:              <strong>${txt[3]}</strong>`;
         button =
             `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="addData" onclick="agregarPf();">Add</button>`
+            <button type="button" class="btn btn-primary" id="addData" onclick="agregarPf();">Add</button>`;
     } 
     if(texto.indexOf('eliminar')!=-1){
         button=
             `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-danger" id="delData" onclick="console.log(res(){return true;});">Del</button>`
+            <button type="button" class="btn btn-danger" id="delData" onclick="console.log(res(){return true;});">Del</button>`;
     }
-    document.getElementById('modal').innerHTML=texto
-    document.getElementById('actionModal').innerHTML=button
-    $('#exampleModalCenter').modal('show')
+    document.getElementById('modal').innerHTML=texto;
+    document.getElementById('actionModal').innerHTML=button;
+    $('#exampleModalCenter').modal('show');
 };
 
 const fetchCallback = (url = BASE_URL, callback) => fetch(url).then((res) => res.json()).then(callback);
@@ -152,7 +145,7 @@ const incluirValor = (nombre) =>
         document.getElementById('destinoValor').appendChild(texto);
 });
 
-const cleanForm = () => document.querySelectorAll('input').forEach(input=> $(input).val(''))
+const cleanForm = () => document.querySelectorAll('input').forEach(input=> $(input).val(''));
 
 $(window).ready(() => {
     incluirValor('Dolar oficial');
@@ -165,7 +158,7 @@ $(window).ready(() => {
             msgBox('Debe completar todos los campos');
         }
     });
-    $('#btnClean').click( () => cleanForm())
-    $('#btnReload').click( () => location.reload())
+    $('#btnClean').click( () => cleanForm());
+    $('#btnReload').click( () => location.reload());
     $('#exampleModalCenter').modal('hide');
 });

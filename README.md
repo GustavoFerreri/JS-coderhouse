@@ -114,6 +114,10 @@ This section should list any major frameworks/libraries used to bootstrap your p
     - [fix] funcion inputs
     - [fix] validacion ingreso
     - [fix] boton eliminar
-    
+    - [fix] Se aplica parseInt en la funcion ordenarArrays
+    - [fix] Funciones botones de limpiar y reload
+            creamos la funcion cleanForm
+            agregamos location.Reload para recargar toda la web
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
