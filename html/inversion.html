@@ -59,8 +59,8 @@
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-outline-success" id="btnCalc">Calcular</button>
-                        <button class="btn btn-outline-warning" id="limpiar">Limpiar</button>
-                        <button class="btn btn-outline-danger" id="reload">Reload</button>
+                        <button class="btn btn-outline-warning" id="btnClean">Limpiar</button>
+                        <button class="btn btn-outline-danger" id="btnReload">Reload</button>
                     </div>
                 </div>
             </div>
@@ -89,19 +89,14 @@
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
+            <div class="modal-header bg-light">
+                <h5 class="modal-title text-danger" id="exampleModalLongTitle">Notificación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                </button>
             </div>
-            <div class="modal-body">
-                
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            <div class="modal-body" id="modal"></div>
+            <div class="modal-footer" id="actionModal"></div>
         </div>
         </div>
     </div>

@@ -6,15 +6,9 @@
     box-sizing: border-box;
 }
 body {
-    padding-top: 10vh;
+    padding-top: 56px;
 }
 
-.navbar{
-    height: 10vh;
-}
-.navbar-nav{
-    height: 100%;
-}
 .img-fluid{
     max-height: 80vh;
 }
