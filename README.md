@@ -93,7 +93,6 @@ This section should list any major frameworks/libraries used to bootstrap your p
               creacion de carpetas html, css, js, img
               html
                 index.html
-                acount.html
                 inversion.html
               js
                 elementosGenerales.js
@@ -118,6 +117,13 @@ This section should list any major frameworks/libraries used to bootstrap your p
     - [fix] Funciones botones de limpiar y reload
             creamos la funcion cleanForm
             agregamos location.Reload para recargar toda la web
-
+    - [update] Se agrega funcion de mensaje
+    - [update] Agregado el codigo para utilizacion de localStorage
+            Creacion
+            Modificacion
+            Carga a traves de las mismas funciones
+            Para implementar en account
+    - [update] se ordena elementoGenerales.js
+    - [update] Agregamos estilos en styles.css
 
 <p align="right">(<a href="#top">back to top</a>)</p>

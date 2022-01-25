@@ -1,10 +1,11 @@
-const anno = 360;
 let cuentaPlazoFijo = [];
 let ID_ORDEN = 1;
+let ACCOUNT = [];
 const BASE_URL = 'https://www.dolarsi.com/api/api.php?type=valoresprincipales';
 
 class plazoFijo {
     #fechaPf = new Date(Date.now());
+    #anno = 360;
     constructor() {
         let inputs = inputValue();
         this.idOrden = ID_ORDEN++;
@@ -13,8 +14,8 @@ class plazoFijo {
         this.interesAnual = parseInt(inputs[2]);
         this.plazo = parseInt(inputs[3]);
     }
-    interesMensual = () => this.interesAnual * (this.plazo / anno);
-    tasaEfectivaAnual = () => (((1 + this.interesMensual() / 100) ** (anno / this.plazo) - 1) * 100).toFixed(2);
+    interesMensual = () => this.interesAnual * (this.plazo / this.#anno);
+    tasaEfectivaAnual = () => (((1 + this.interesMensual() / 100) ** (this.#anno / this.plazo) - 1) * 100).toFixed(2);
     interesMensualPercibido = () => parseFloat((this.montoInvertido * this.interesMensual()) / 100);
     mostrarFecha = () => this.formatoFecha(this.#fechaPf);
     totalPercibido = () => this.montoInvertido + this.interesMensualPercibido();
@@ -34,54 +35,6 @@ class plazoFijo {
     }
 }
 
-const crearTabla = (datosTabla) => {
-    var cuerpoTabla = document.getElementById('resultado');
-    cuerpoTabla.innerHTML = '';
-    datosTabla.forEach((datosFilas) => {
-        var fila = document.createElement('tr');
-        var btnDel = document.createElement('a');
-        with (btnDel) {
-            className = 'btn btn-danger btn-sm';
-            addEventListener('click', eliminarElemento);
-            appendChild(document.createTextNode('x'));
-        }
-        datosFilas.forEach((datosCeldas) => {
-            var celda = document.createElement('td');
-            celda.appendChild(document.createTextNode(datosCeldas));
-            fila.appendChild(celda);
-        });
-        var celda = document.createElement('td');
-        celda.appendChild(btnDel);
-        fila.appendChild(celda);
-        cuerpoTabla.appendChild(fila);
-    });
-};
-
-// A trabajar respuesta en msj
-const eliminarElemento = (e) => {
-    let hijo = e.target;
-    let padre = hijo.parentNode.parentNode;
-    let cuenta = padre.querySelector('td').textContent;
-    let index = cuentaPlazoFijo.findIndex((elemento) => elemento[0] == cuenta);
-    cuentaPlazoFijo.splice(index, 1);
-    msgBox(`Se elimino la Orden id ${cuenta}`);
-    crearTabla(cuentaPlazoFijo);
-    $('#exampleModalCenter').modal('hide')
-};
-
-const ordenarArrays = (opcion) => crearTabla(cuentaPlazoFijo.sort((a, b) => parseInt(a[opcion]) - parseInt(b[opcion]) ));
-
-const inputValue = () => $('input').map((index, input) => $(input).val() != '' && $(input).val());
-
-const evaluarpf = () => {
-    let ingresos = inputValue();
-    if (ingresos.filter((index, val) => val == false).length == 0) {
-        msgBox(ingresos);
-    } else {
-        msgBox('Debe completar todos los campos');
-    }
-};
-
 const agregarPf = () => {
     let usrPf = new plazoFijo();
     with (usrPf) {
@@ -96,38 +49,114 @@ const agregarPf = () => {
             plazoCierre(),
             '$' + totalPercibido().toFixed(2),
         ]);
+        msgInfo(`<b>Se conformo nuevo Plazo Fijo</b><br>
+                cuenta: ${cuenta}<br>
+                monto: $${montoInvertido}<br>
+                tasa: ${interesAnual.toFixed(2)}%<br>
+                vencimiento: ${plazoCierre()}<br>
+                monto para acreditar: $${totalPercibido().toFixed(2)}`);
     }
     crearTabla(cuentaPlazoFijo);
-    $('#exampleModalCenter').modal('hide');
 }
 
-// Como resolver cuando el mensaje parte de eliminar o de otra zona de la web
-const msgBox = (txt) => {
-    let texto = txt;
-    let button = 
-        `<button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>`;
-    if (typeof texto == 'object') {
-        texto = 
-            `<h4>Conformacion Plazo Fijo</h4>
-            <p>Usted esta por colocar</p>
-            Número de cuenta:   <strong>${txt[0]}</strong><br>
-            Monto invertido:    <strong>$${txt[1]}</strong><br>
-            Tasa anual:         <strong>${txt[2]}%</strong><br>
-            Renta del periodo:  <strong>$${parseFloat(txt[1]*(txt[2]/100)*(txt[3]/360)).toFixed(2)}</strong><br>
-            Plazo:              <strong>${txt[3]}</strong>`;
-        button =
-            `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="addData" onclick="agregarPf();">Add</button>`;
-    } 
-    if(texto.indexOf('eliminar')!=-1){
-        button=
-            `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-danger" id="delData" onclick="console.log(res(){return true;});">Del</button>`;
+const cargarCuenta = () =>{
+    let ingresos = inputValue();
+    let objSon = {'account': ingresos[0], 'accountMount': ingresos[1]}
+    let indexAccount = ACCOUNT.findIndex(jsonData => jsonData['account'] == objSon['account'])
+    if (indexAccount != -1){
+        ACCOUNT[indexAccount]['accountMount'] = 
+            parseInt(ACCOUNT[indexAccount]['accountMount']) + parseInt(objSon['accountMount']);
+        msgInfo(`En la cuenta numero: <b style="color: red">${objSon['account']}</b><br> 
+            se le agrega liquidez por $${objSon['accountMount']}<br>
+            quedando un saldo de $${ACCOUNT[indexAccount]['accountMount']}`);
+    } else { 
+        ACCOUNT.push(objSon); 
+        msgInfo(`En la cuenta numero: <b style="color: red">${objSon['account']}</b><br> 
+            con un saldo de $${objSon['accountMount']}`);
     }
-    document.getElementById('modal').innerHTML=texto;
-    document.getElementById('actionModal').innerHTML=button;
-    $('#exampleModalCenter').modal('show');
+    localStorage.setItem('cuentas', JSON.stringify(ACCOUNT));
+    chargeDataArray();
+    crearTabla(ACCOUNT)
+}
+
+const crearTabla = (datosTabla) => {
+    let cuerpoTabla = document.getElementById('resultado');
+    cuerpoTabla.innerHTML = '';
+    try {
+        datosTabla.forEach((datosFilas) => {
+            let fila = document.createElement('tr');
+            let btnDel = document.createElement('a');
+            with (btnDel) {
+                className = 'btn btn-danger btn-sm';
+                style.color = 'white';
+                addEventListener('click', eliminarElemento);
+                appendChild(document.createTextNode('X'));
+            }
+            datosFilas.forEach((datosCeldas) => {
+                let celda = document.createElement('td');
+                celda.appendChild(document.createTextNode(datosCeldas));
+                fila.appendChild(celda);
+            });
+            let celda = document.createElement('td');
+            celda.appendChild(btnDel);
+            fila.appendChild(celda);
+            cuerpoTabla.appendChild(fila);
+        });
+    } catch {
+        for(let i = 0; i < datosTabla.length; i++){
+            let fila = document.createElement('tr');
+            console.log(datosTabla[i]);
+            for(const [key, value] of Object.entries(datosTabla[i])){
+                let celda = document.createElement('td');
+                let text = value;
+                if(key == 'accountMount') text = `$ ${value}`;
+                celda.appendChild(document.createTextNode(text));
+                fila.appendChild(celda);
+            }
+            cuerpoTabla.appendChild(fila);
+        }
+    }    
 };
+
+const eliminarElemento = (e) => {
+    let hijo = e.target;
+    let padre = hijo.parentNode.parentNode;
+    let cuenta = padre.querySelector('td').textContent;
+    let index = cuentaPlazoFijo.findIndex((elemento) => elemento[0] == cuenta);
+    cuentaPlazoFijo.splice(index, 1);
+    msgInfo(`Se elimino la Orden id <b style="color: red;">${cuenta}</b>`);
+    crearTabla(cuentaPlazoFijo);
+};
+
+const ordenarArrays = (opcion) => crearTabla(cuentaPlazoFijo.sort((a, b) => parseInt(a[opcion]) - parseInt(b[opcion]) ));
+
+const inputValue = () => $('input').map((index, input) => $(input).val() != '' && $(input).val());
+
+const evaluarpf = () => {
+    let ingresos = inputValue();
+    if (ingresos.filter((index, val) => val == false).length == 0) {
+        msgInfo(ingresos);
+    } else {
+        msgInfo('Debe completar todos los campos');
+    }
+};
+
+const msgInfo = (text) => {
+    let destinoMsg = document.querySelector('.toast-body')
+    destinoMsg.innerHTML= text;
+    $('.toast').toast('show');
+    setTimeout(()=>{
+        $('.toast').toast('hide');
+        destinoMsg.innerHTML= '';
+    }, 2000)
+}
+
+const chargeDataArray = () => {
+        ACCOUNT = [];
+        getAccount().forEach( data =>  ACCOUNT.push({'account': data['account'], 'accountMount': data['accountMount']} ));
+}
+
+const getAccount = () => JSON.parse(localStorage.getItem('cuentas'));
 
 const fetchCallback = (url = BASE_URL, callback) => fetch(url).then((res) => res.json()).then(callback);
 
@@ -153,12 +182,14 @@ $(window).ready(() => {
     $('#btnCalc').click( () =>{
         let ingresos = inputValue();
         if (ingresos.filter((index, val) => val == false).length == 0) {
-            msgBox(ingresos);
+            agregarPf();
         } else {
-            msgBox('Debe completar todos los campos');
+            msgInfo('Debe completar todos los campos');
         }
     });
     $('#btnClean').click( () => cleanForm());
     $('#btnReload').click( () => location.reload());
+    $('#btnNewAccount').click(() => cargarCuenta())
     $('#exampleModalCenter').modal('hide');
 });
+
